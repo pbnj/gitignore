@@ -1,56 +1,86 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io/ioutil"
+	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
 
 	"github.com/fatih/color"
+	log "github.com/sirupsen/logrus"
 )
 
 var (
-	lang          string
-	langGitIgnore string
-	found         bool
+	debugFlag = flag.Bool("d", false, "Debug")
+	langFlag  = flag.String("l", "", "Language")
+	writeFlag = flag.Bool("w", false, "Write to .gitignore file")
+
+	usage = fmt.Sprintf("USAGE: gitignore -l <language>")
 )
 
 func main() {
-	usage := fmt.Sprintf("USAGE: gitignore <language>")
-	if len(os.Args) == 1 {
-		fmt.Println(usage)
+
+	flag.Parse()
+
+	if flag.NFlag() == 0 {
+		color.New(color.Bold).Println(usage)
 		os.Exit(1)
 	}
 
-	if os.Args[1] == "--help" {
-		fmt.Println(usage)
-		os.Exit(1)
+	if *debugFlag {
+		log.SetLevel(log.DebugLevel)
 	}
 
-	lang = os.Args[1]
-	langGitIgnore = strings.Title(lang) + ".gitignore"
+	langCapitalized := strings.Title(*langFlag) + ".gitignore"
 
-	assets := AssetNames()
-	for _, name := range assets {
-		checkGitIgnore(name)
+	resBytes := getGitIgnore(langCapitalized)
+
+	color.New(color.FgGreen, color.Bold).Println("✓ Found", langCapitalized)
+
+	if *writeFlag {
+		writeGitIgnore(resBytes)
+	} else {
+		fmt.Println(string(resBytes))
 	}
-	if !found {
-		color.Red("✗ Could not find .gitignore for '%s'", lang)
-	}
+
 }
 
-func checkGitIgnore(name string) {
-	pathLangGitIgnore := fmt.Sprintf("gitignore/%s", langGitIgnore)
-	if name == pathLangGitIgnore {
-		dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
-		checkErr(err)
-		bytes, err := Asset(name)
-		checkErr(err)
-		ioutil.WriteFile(".gitignore", bytes, 0644)
-		color.Green("✓ Created .gitignore for %s in %s", lang, dir)
-		found = true
+func getGitIgnore(l string) []byte {
+	gitURL := "https://raw.githubusercontent.com/github/gitignore/master/" + l
+
+	log.Debugf("Checking for .gitignore at: %+v\n", gitURL)
+
+	resp, err := http.Get(gitURL)
+	checkErr(err)
+	defer resp.Body.Close()
+
+	if resp.StatusCode != 200 {
+		color.Red("✗ Could not find .gitignore for '%s'", l)
+		return nil
 	}
+
+	bytes, err := ioutil.ReadAll(resp.Body)
+	checkErr(err)
+
+	return bytes
+
+}
+
+func writeGitIgnore(b []byte) {
+	currentDir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	checkErr(err)
+	log.Debugf("Current Directory: %+v\n", currentDir)
+
+	gitIgnoreFile := filepath.Join(currentDir, ".gitignore")
+	log.Debugf(".gitignore file path to be created: %+v\n", gitIgnoreFile)
+
+	err = ioutil.WriteFile(gitIgnoreFile, b, 0644)
+	checkErr(err)
+
+	fmt.Println("Created:", gitIgnoreFile)
 }
 
 func checkErr(err error) {
