@@ -1,17 +1,18 @@
 # go-gitignore
+
 > Simple CLI for creating .gitignore files
 
 ## Install
 
 ```sh
-go get github.com/petermbenjamin/go-gitignore
+go get github.com/petermbenjamin/go-gitignore/cmd/gitignore
 ```
 
 ## Usage
 
 ```sh
-$ go-gitignore --help
-Usage of go-gitignore:
+$ gitignore --help
+Usage of gitignore:
   -d    Debug
   -l string
         Language
@@ -20,9 +21,9 @@ Usage of go-gitignore:
 
 ### Example
 
-- Simple: `go-gitignore -l <lang>` will print to STDOUT by default
+- Simple: `gitignore -l <lang>` will print to STDOUT by default
     ```sh
-    go-gitignore -l go
+    $ gitignore -l go
     ✓ Found Go.gitignore
     # Binaries for programs and plugins
     *.exe
@@ -42,10 +43,11 @@ Usage of go-gitignore:
 
 - To write to `.gitignore` file:
     ```sh
-    go-gitignore -w -l go
+    $ gitignore -w -l go
     ✓ Found Go.gitignore
     Created: /home/ubuntu/go/src/github.com/petermbenjamin/go-gitignore/.gitignore
     ```
 
 ## License
+
 MIT &copy; [Peter Benjamin](https://petermbenjamin.github.io/)
