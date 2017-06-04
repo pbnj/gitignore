@@ -17,8 +17,6 @@ var (
 	debugFlag = flag.Bool("d", false, "Debug")
 	langFlag  = flag.String("l", "", "Language")
 	writeFlag = flag.Bool("w", false, "Write to .gitignore file")
-
-	usage = fmt.Sprintf("USAGE: gitignore -l <language>")
 )
 
 func main() {
@@ -26,7 +24,9 @@ func main() {
 	flag.Parse()
 
 	if flag.NFlag() == 0 {
-		color.New(color.Bold).Println(usage)
+		fmt.Println("Usage: gitignore <options>")
+		fmt.Println("Options:")
+		flag.PrintDefaults()
 		os.Exit(1)
 	}
 
