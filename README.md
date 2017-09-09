@@ -4,9 +4,14 @@
 
 ## Install
 
-```sh
-go get github.com/petermbenjamin/go-gitignore/cmd/gitignore
-```
+- Directly
+    ```sh
+    go get github.com/petermbenjamin/go-gitignore/cmd/gitignore
+    ```
+- Docker
+    ```sh
+    docker run --rm -it petermbenjamin/gitignore
+    ```
 
 ## Usage
 
@@ -46,6 +51,10 @@ Usage of gitignore:
     $ gitignore -w -l go
     ✓ Found Go.gitignore
     Created: /home/ubuntu/go/src/github.com/petermbenjamin/go-gitignore/.gitignore
+
+    # or, via docker...
+
+    $ docker run --rm -it petermbenjamin/gitignore -l go > .gitignore
     ```
 
 ## License
