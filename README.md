@@ -1,21 +1,16 @@
-# go-gitignore
+# gitignore
 
 > Simple CLI for creating .gitignore files
 
 ## Install
 
-- Directly
-    ```sh
-    go get github.com/petermbenjamin/go-gitignore/cmd/gitignore
-    ```
-- Docker
-    ```sh
-    docker run --rm -it petermbenjamin/gitignore
-    ```
+```
+$ go get -u -v github.com/petermbenjamin/go-gitignore
+```
 
 ## Usage
 
-```sh
+```
 $ gitignore --help
 Usage of gitignore:
   -d    Debug
@@ -26,35 +21,32 @@ Usage of gitignore:
 
 ### Example
 
-- Simple: `gitignore -l <lang>` will print to STDOUT by default
-    ```sh
-    $ gitignore -l go
-    ✓ Found Go.gitignore
-    # Binaries for programs and plugins
-    *.exe
-    *.dll
-    *.so
-    *.dylib
+Simple: `gitignore -l <lang>` will print to STDOUT by default
 
-    # Test binary, build with `go test -c`
-    *.test
+```sh
+$ gitignore -l go
+INFO Found: Go.gitignore
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
 
-    # Output of the go coverage tool, specifically when used with LiteIDE
-    *.out
+# Test binary, build with `go test -c`
+*.test
 
-    # Project-local glide cache, RE: https://github.com/Masterminds/glide/issues/736
-    .glide/
-    ```
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Project-local glide cache, RE: https://github.com/Masterminds/glide/issues/736
+.glide/
+```
 
 - To write to `.gitignore` file:
     ```sh
     $ gitignore -w -l go
-    ✓ Found Go.gitignore
+    Found Go.gitignore
     Created: /home/ubuntu/go/src/github.com/petermbenjamin/go-gitignore/.gitignore
-
-    # or, via docker...
-
-    $ docker run --rm -it petermbenjamin/gitignore -l go > .gitignore
     ```
 
 ## License

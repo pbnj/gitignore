@@ -9,19 +9,21 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/fatih/color"
-	log "github.com/sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 )
 
 var (
 	debugFlag = flag.Bool("d", false, "Debug")
 	langFlag  = flag.String("l", "", "Language")
 	writeFlag = flag.Bool("w", false, "Write to .gitignore file")
+	log       = logrus.New()
 )
 
 func main() {
 
 	flag.Parse()
+
+	log.Formatter = &logrus.TextFormatter{DisableTimestamp: true}
 
 	if flag.NFlag() == 0 {
 		fmt.Println("Usage: gitignore <options>")
@@ -31,7 +33,7 @@ func main() {
 	}
 
 	if *debugFlag {
-		log.SetLevel(log.DebugLevel)
+		log.SetLevel(logrus.DebugLevel)
 	}
 
 	langCapitalized := strings.Title(*langFlag) + ".gitignore"
@@ -86,6 +88,6 @@ func writeGitIgnore(b []byte) {
 func checkErr(err error) {
 	if err != nil {
 		log.Errorln(err)
-		log.Exit(1)
+		os.Exit(1)
 	}
 }
