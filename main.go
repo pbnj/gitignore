@@ -38,7 +38,7 @@ func main() {
 
 	resBytes := getGitIgnore(langCapitalized)
 
-	color.New(color.FgGreen, color.Bold).Println("✓ Found", langCapitalized)
+	log.Infoln("Found:", langCapitalized)
 
 	if *writeFlag {
 		writeGitIgnore(resBytes)
@@ -58,7 +58,7 @@ func getGitIgnore(l string) []byte {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != 200 {
-		color.Red("✗ Could not find .gitignore for '%s'", l)
+		log.Warnln("Could not find .gitignore for:", l)
 		return nil
 	}
 
@@ -80,12 +80,12 @@ func writeGitIgnore(b []byte) {
 	err = ioutil.WriteFile(gitIgnoreFile, b, 0644)
 	checkErr(err)
 
-	fmt.Println("Created:", gitIgnoreFile)
+	log.Infoln("Created:", gitIgnoreFile)
 }
 
 func checkErr(err error) {
 	if err != nil {
-		color.Red("✗ %s", err)
-		os.Exit(1)
+		log.Errorln(err)
+		log.Exit(1)
 	}
 }
