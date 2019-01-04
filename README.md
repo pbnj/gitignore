@@ -5,7 +5,7 @@
 ## Install
 
 ```
-$ go get -u -v github.com/petermbenjamin/go-gitignore
+$ go get -u -v github.com/petermbenjamin/gitignore
 ```
 
 ## Usage
@@ -46,7 +46,7 @@ INFO Found: Go.gitignore
     ```sh
     $ gitignore -w -l go
     Found Go.gitignore
-    Created: /home/ubuntu/go/src/github.com/petermbenjamin/go-gitignore/.gitignore
+    Created: /home/ubuntu/go/src/github.com/petermbenjamin/gitignore/.gitignore
     ```
 
 ## License
