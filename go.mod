@@ -1,10 +1,13 @@
-module github.com/petermbenjamin/go-gitignore
+module github.com/petermbenjamin/gitignore
 
 require (
-	github.com/fatih/color v1.5.0
-	github.com/mattn/go-colorable v0.0.9
-	github.com/mattn/go-isatty v0.0.2
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/onsi/ginkgo v1.7.0 // indirect
+	github.com/onsi/gomega v1.4.3 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/sirupsen/logrus v1.0.3
-	golang.org/x/crypto v0.0.0-20170825220121-81e90905daef
-	golang.org/x/sys v0.0.0-20170908132636-5513e650ab47
+	github.com/stretchr/testify v1.2.2 // indirect
+	golang.org/x/crypto v0.0.0-20170825220121-81e90905daef // indirect
+	gopkg.in/airbrake/gobrake.v2 v2.0.9 // indirect
+	gopkg.in/gemnasium/logrus-airbrake-hook.v2 v2.1.2 // indirect
 )
