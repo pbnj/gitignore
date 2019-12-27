@@ -5,7 +5,7 @@
 ## Install
 
 ```
-$ go get -u -v github.com/petermbenjamin/gitignore
+$ go get -u -v github.com/pbnj/gitignore@latest
 ```
 
 ## Usage
@@ -42,13 +42,13 @@ INFO Found: Go.gitignore
 .glide/
 ```
 
-- To write to `.gitignore` file:
+-   To write to `.gitignore` file:
     ```sh
     $ gitignore -w -l go
     Found Go.gitignore
-    Created: /home/ubuntu/go/src/github.com/petermbenjamin/gitignore/.gitignore
+    Created: /home/ubuntu/go/src/github.com/pbnj/gitignore/.gitignore
     ```
 
 ## License
 
-MIT &copy; [Peter Benjamin](https://petermbenjamin.github.io/)
+MIT &copy; [Peter Benjamin](https://pbnj.github.io/)
